@@ -14,9 +14,21 @@ def checkguess():
     guess_list = request.json['guess']
     enigma_list = request.json['enigma']
 
-    #Hey student: your code here!!!!
+    whitePeg = 0
+    blackPeg = 0
 
-    hint = {'whitePegs':1, 'blackPegs':2} #create the hint as a dict
+
+    for x in range(4):
+        if guess_list[x] == enigma_list[x]:
+            blackPeg = blackPeg + 1
+
+    for i in range(4):
+        for e in range(4):
+            if guess_list[i] == enigma_list[e] and i != e:
+                whitePeg = whitePeg + 1
+                break
+
+    hint = {'whitePegs':whitePeg, 'blackPegs':blackPeg} #create the hint as a dicts
     print("the hint:", hint) #print out the hint to the console
     return jsonify(hint) #return the dict as a json
 
